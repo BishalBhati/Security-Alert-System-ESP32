@@ -40,4 +40,4 @@ Once powered on, the system will monitor motion. If motion is detected, the buzz
 - Include a real-time monitoring dashboard.
 
 ## License
-This project is open-source. Feel free to modify and improve it.
+This project is Owned by ©Bishal Bhati
