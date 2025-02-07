@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <head>
     <title>Security Alert System using ESP32, PIR Sensor, and Buzzer</title>
 </head>
@@ -57,4 +55,3 @@
     <h2>License</h2>
     <p>This project is open-source. Feel free to modify and improve it.</p>
 </body>
-</html>
