@@ -1,0 +1,85 @@
+switch:
+  - platform: gpio
+    id: buzzer
+    name: buzzer
+    pin:
+      number: GPIO2
+      inverted: true
+  - platform: gpio
+    id: state
+    name: state
+    pin:
+      number: GPIO15
+binary_sensor:
+  - platform: gpio
+    pin: GPIO4
+    name: PIR Sensor
+    device_class: motion
+    on_press:
+      then:
+        - mqtt.notify:
+            payload: |-
+              root["logLevel"] = "info";
+              root["message"] = "Motion Detected";
+        - if:
+            condition:
+              switch.is_on: state
+            then:
+              switch.turn_on: buzzer
+    on_release:
+      then:
+        - mqtt.notify:
+            payload: |-
+              root["logLevel"] = "info";
+              root["message"] = "Horizont is clear";
+        - if:
+            condition:
+              switch.is_on: state
+            then:
+              switch.turn_off: buzzer
+    filters:
+      - delayed_on: 100ms
+esphome:
+  name: '1702611907531972'
+  platform: ESP32
+  board: nodemcu-32s
+wifi:
+  ssid: '[{@%$BISHAL MIFI$%@}]'
+  password: 24223456@%B
+  ap:
+    ssid: Security Alert
+    password: password
+mqtt:
+  broker: cloud.2smart.com
+  port: 1883
+  username: f36787aa7d490a5ff2e4451fce671a9d387ee182739af6244d1fd74acc41ec9f
+  password: Jv3goFVYrd
+  topic_prefix: >-
+    fw_base/esphome/f36787aa7d490a5ff2e4451fce671a9d387ee182739af6244d1fd74acc41ec9f/1702611907531972/device1702611907531972/state
+  discovery_prefix: >-
+    fw_base/esphome/f36787aa7d490a5ff2e4451fce671a9d387ee182739af6244d1fd74acc41ec9f/1702611907531972/device1702611907531972/config
+captive_portal:
+logger:
+text_sensor:
+  - id: fw_version_id
+    name: 2smart_version
+    platform: version
+    on_value:
+      - if:
+          condition:
+            text_sensor.state:
+              id: fw_version_id
+              state: '4'
+          else:
+            - lambda: id(fw_version_id).publish_state("4");
+  - id: device_name_id
+    name: 2smart_device_name
+    platform: version
+    on_value:
+      - if:
+          condition:
+            text_sensor.state:
+              id: device_name_id
+              state: Security Alert
+          else:
+            - lambda: id(device_name_id).publish_state("Security Alert");

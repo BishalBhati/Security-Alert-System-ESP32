@@ -1,0 +1,9 @@
+{
+    "mqttUri": "mqtt://cloud.2smart.com:1883",
+    "wssUri": "wss://cloud.2smart.com/mqtt",
+    "userEmail": "M*******5@gmail.com",
+    "productId": 1702668953931972,
+    "token": "",
+    "deviceId": "",
+    "firmwareVersion": "4"
+}
